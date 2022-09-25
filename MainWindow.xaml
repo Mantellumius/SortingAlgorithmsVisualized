@@ -1,0 +1,177 @@
+﻿<Window x:Class="Sorting_visualizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sorting_visualizer"
+        xmlns:model="clr-namespace:Sorting_visualizer.MVVM.Model"
+        xmlns:updown="clr-namespace:NumericUpDownLib;assembly=NumericUpDownLib"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=System.Runtime"
+        mc:Ignorable="d"
+        Title="Main Window" Height="600" Width="900"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Border Background="#272537"
+            CornerRadius="30">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="25" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Background="#372531"
+                CornerRadius="10">
+                <TextBlock Text="Sorting algorithms &#x0a;visualizer"
+                           Foreground="White"
+                           FontSize="18"
+                           Margin="5,5"
+                           FontWeight="Heavy" />
+            </Border>
+            <StackPanel Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal">
+                <StackPanel.DataContext>
+                    <model:AlgorithmDataModel />
+                </StackPanel.DataContext>
+                <ComboBox
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="15,0,0,0"
+                    Width="150" Height="20">
+                    <ComboBoxItem Selected="QuickSort_OnSelected">Quick Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="BubbleSort_OnSelected">Bubble Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="SelectionSort_OnSelected">Selection Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="InsertionSort_OnSelected">Insertion Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="HeapSort_OnSelected">Heap Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="MergeSort_OnSelected">Merge Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="CountingSort_OnSelected">Counting Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="RadixSort_OnSelected">Radix Sort</ComboBoxItem>
+                    <ComboBoxItem Selected="BucketSort_OnSelected">Bucket Sort</ComboBoxItem>
+                </ComboBox>
+                <Slider Value="{Binding ArrayLength}"
+                        Minimum="1" Maximum="10000"
+                        SelectionStart="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="5,0"
+                        IsSelectionRangeEnabled="True"
+                        Width="150"
+                        ValueChanged="Slider_ValueChanged" />
+                <Label Content="Length: "
+                       Style="{StaticResource LabelTheme}" />
+                <TextBlock
+                    Text="{Binding ArrayLength}"
+                    Style="{StaticResource CounterTextBlockTheme}" />
+                <Label Content="Accesses: "
+                       Style="{StaticResource LabelTheme}" />
+                <TextBlock
+                    Text="{Binding AccessesCount}"
+                    Style="{StaticResource CounterTextBlockTheme}" />
+                <Label Content="Swaps: "
+                       Style="{StaticResource LabelTheme}" />
+                <TextBlock
+                    Text="{Binding SwapsCount}"
+                    Style="{StaticResource CounterTextBlockTheme}" />
+            </StackPanel>
+            <Border Grid.Column="1" Grid.Row="0" MouseDown="DragWithHeader"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Background="Transparent">
+            </Border>
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="630" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="2"
+                        Click="CloseButton_Click"
+                        Style="{StaticResource DockPanelButtonTheme}">
+                    <Ellipse Height="15"
+                             Width="15"
+                             Fill="Red" />
+                </Button>
+                <Button Grid.Column="1"
+                        Click="MinimizeWindow_Click"
+                        Style="{StaticResource DockPanelButtonTheme}">
+                    <Ellipse Height="15"
+                             Width="15"
+                             Fill="Yellow" />
+                </Button>
+            </Grid>
+            <StackPanel Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="0,15,0,0">
+                <StackPanel.DataContext>
+                    <model:DelaysModel></model:DelaysModel>
+                </StackPanel.DataContext>
+                <Button Name="StartSorting"
+                        Content="Start Sorting"
+                        Style="{StaticResource ButtonTheme}"
+                        Click="StartSorting_OnClick" />
+                <Button Name="CancelSorting"
+                        Content="Cancel Sorting"
+                        Style="{StaticResource ButtonTheme}"
+                        Click="Cancel_OnClick" />
+                <Button Name="RandomizeArrayButton"
+                        Content="Randomize array"
+                        Style="{StaticResource ButtonTheme}"
+                        Click="RandomizeArrayButton_OnClick" />
+                <StackPanel Orientation="Horizontal">
+                    <updown:NumericUpDown
+                        Value="{Binding InspectDelay}"
+                        ValueChanged="InspectUpDown_OnValueChanged"
+                        Style="{StaticResource DelayUpDown}"/>
+                    <Label Content="Inspect delay"
+                           Foreground="White"
+                           FontSize="14"
+                           FontWeight="Medium"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <updown:NumericUpDown
+                        Value="{Binding SwapDelay}"
+                        ValueChanged="SwapUpDown_OnValueChanged"
+                        Style="{StaticResource DelayUpDown}"/>
+                    <Label Content="Swap delay "
+                           Foreground="White"
+                           FontSize="14"
+                           FontWeight="Medium"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <updown:NumericUpDown
+                        Value="{Binding StraightChange}"
+                        ValueChanged="StraightChangeUpDown_OnValueChanged"
+                        Style="{StaticResource DelayUpDown}"/>
+                    <Label Content="Straight change delay"
+                           Foreground="White"
+                           FontSize="14"
+                           FontWeight="Medium"/>
+                </StackPanel>
+            </StackPanel>
+            <Canvas Grid.Column="1"
+                    Grid.Row="2"
+                    Name="ArrayCanvas"
+                    Background="Black"
+                    Margin="15"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform Y="-505"></TranslateTransform>
+                        <ScaleTransform ScaleY="-1" />
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+            </Canvas>
+        </Grid>
+    </Border>
+</Window>
