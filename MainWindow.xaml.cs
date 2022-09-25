@@ -4,20 +4,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using Sorting_visualizer.MVVM.Model;
 using Sorting_visualizer.SortEngines;
+using Sorting_visualizer.Updaters;
 
 namespace Sorting_visualizer
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private CancellationTokenSource? _tokenSource;
         private ValuesModel<int> _valuesModel = new(0);
         private ISortEngine<int>? _sortEngine;
-
-
         public static bool IsLocked { get; set; }
         public static MainWindow MainWindowInstance { get; private set; } = null!;
 
@@ -35,7 +33,7 @@ namespace Sorting_visualizer
                 return;
             ArrayCanvas.Children.Clear();
             var maxValue = (int)ArrayCanvas.ActualHeight;
-            var arraySize = AlgorithmDataModel.AlgorithmDataModelInstance.ArrayLength;
+            var arraySize = AlgorithmDataModel.AlgorithmDataModelInstance!.ArrayLength;
             var batWidth = ArrayCanvas.ActualWidth / arraySize;
             var random = new Random();
             _valuesModel = new ValuesModel<int>(arraySize);
@@ -61,27 +59,25 @@ namespace Sorting_visualizer
         private void SubscribeActionsPerformedUpdater()
         {
             UtilityFunctions.OnSwap += ActionsPerformedUpdater.Swap;
-            UtilityFunctions.OnStarightChange += ActionsPerformedUpdater.StraightChange;
         }
 
         private void UnsubscribeActionsPerformedUpdater()
         {
             UtilityFunctions.OnSwap -= ActionsPerformedUpdater.Swap;
-            UtilityFunctions.OnStarightChange -= ActionsPerformedUpdater.StraightChange;
         }
 
         private void SubscribeArrayView()
         {
             UtilityFunctions.OnSwap += ArrayViewUpdater.Swap;
             UtilityFunctions.OnInspect += ArrayViewUpdater.Inspect;
-            UtilityFunctions.OnStarightChange += ArrayViewUpdater.StraightChange;
+            UtilityFunctions.OnSet += ArrayViewUpdater.Set;
         }
 
         private void UnsubscribeArrayView()
         {
             UtilityFunctions.OnSwap -= ArrayViewUpdater.Swap;
             UtilityFunctions.OnInspect -= ArrayViewUpdater.Inspect;
-            UtilityFunctions.OnStarightChange -= ArrayViewUpdater.StraightChange;
+            UtilityFunctions.OnSet -= ArrayViewUpdater.Set;
         }
 
         #endregion
@@ -123,7 +119,7 @@ namespace Sorting_visualizer
         {
             if (_valuesModel.Length < 1 || IsLocked)
                 return;
-            AlgorithmDataModel.AlgorithmDataModelInstance.AccessesCount = 0;
+            AlgorithmDataModel.AlgorithmDataModelInstance!.AccessesCount = 0;
             AlgorithmDataModel.AlgorithmDataModelInstance.SwapsCount = 0;
             IsLocked = true;
             _tokenSource = new CancellationTokenSource();
@@ -183,19 +179,23 @@ namespace Sorting_visualizer
 
         #endregion
 
+        #region UpDownValueChangedEvents
+
         private void InspectUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
-            DelaysModel.DelaysModelInstance.InspectDelay = e.NewValue;
+            DelaysModel.DelaysModelInstance!.InspectDelay = e.NewValue;
         }
 
         private void SwapUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
-            DelaysModel.DelaysModelInstance.SwapDelay = e.NewValue;
+            DelaysModel.DelaysModelInstance!.SwapDelay = e.NewValue;
         }
 
         private void StraightChangeUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
-            DelaysModel.DelaysModelInstance.StraightChange = e.NewValue;
+            DelaysModel.DelaysModelInstance!.StraightChange = e.NewValue;
         }
+
+        #endregion
     }
 }

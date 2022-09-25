@@ -54,7 +54,7 @@ public class BucketSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.StraightChange(values, i, sortedList[i]);
+            await UtilityFunctions.Set(values, i, sortedList[i]);
         }
     }
 

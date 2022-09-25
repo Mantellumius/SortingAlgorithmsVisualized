@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Sorting_visualizer.MVVM.Model;
 
-namespace Sorting_visualizer;
+namespace Sorting_visualizer.Updaters;
 
 public static class ArrayViewUpdater
 {
@@ -16,7 +16,7 @@ public static class ArrayViewUpdater
     public static async Task Swap(int i1, int i2)
     {
         ChangeBarColor(SwapColor, i1, i2);
-        if (DelaysModel.DelaysModelInstance.SwapDelay > 0)
+        if (DelaysModel.DelaysModelInstance!.SwapDelay > 0)
             await Task.Delay(DelaysModel.DelaysModelInstance.SwapDelay);
         var bar1 = (Rectangle)MainWindow.MainWindowInstance.ArrayCanvas?.Children[i1]!;
         var bar2 = (Rectangle)MainWindow.MainWindowInstance.ArrayCanvas?.Children[i2]!;
@@ -24,10 +24,10 @@ public static class ArrayViewUpdater
         ChangeBarColor(BaseColor, i1, i2);
     }
 
-    public static async Task StraightChange(int i, int height)
+    public static async Task Set(int i, int height)
     {
         ChangeBarColor(ChangePerformedColor, i);
-        if (DelaysModel.DelaysModelInstance.StraightChange > 0)
+        if (DelaysModel.DelaysModelInstance!.StraightChange > 0)
             await Task.Delay(DelaysModel.DelaysModelInstance.StraightChange);
         var bar1 = (Rectangle)MainWindow.MainWindowInstance.ArrayCanvas?.Children[i]!;
         bar1.Height = height;
@@ -38,7 +38,7 @@ public static class ArrayViewUpdater
     {
         foreach (var index in indexes)
             ChangeBarColor(InspectColor, index);
-        if (DelaysModel.DelaysModelInstance.InspectDelay > 0)
+        if (DelaysModel.DelaysModelInstance!.InspectDelay > 0)
             await Task.Delay(DelaysModel.DelaysModelInstance.InspectDelay);
         foreach (var index in indexes)
             ChangeBarColor(BaseColor, index);

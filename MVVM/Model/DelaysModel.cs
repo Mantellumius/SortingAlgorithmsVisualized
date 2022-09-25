@@ -40,13 +40,13 @@ public class DelaysModel : ObservableObject
         }
     }
 
-    public static DelaysModel DelaysModelInstance;
+    public static DelaysModel? DelaysModelInstance;
 
     public DelaysModel()
     {
         _inspectDelay = 1;
         _swapDelay = 1;
         _straightChange = 1;
-        DelaysModelInstance = this;
+        DelaysModelInstance ??= this;
     }
 }

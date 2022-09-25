@@ -45,7 +45,7 @@ public class RadixSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.StraightChange(values, i, outputArr[i]);
+            await UtilityFunctions.Set(values, i, outputArr[i]);
         }
     }
 }

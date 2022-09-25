@@ -40,17 +40,26 @@ public class AlgorithmDataModel : ObservableObject
         }
     }
 
-    public static AlgorithmDataModel AlgorithmDataModelInstance;
+    private int _setCount;
 
-    public AlgorithmDataModel(int accessesCount, int swapsCount)
+    public int SetCount
     {
-        _accessesCount = accessesCount;
-        _swapsCount = swapsCount;
-        _arrayLength = 1;
-        AlgorithmDataModelInstance = this;
+        get => _setCount;
+        set
+        {
+            _setCount = value;
+            OnPropertyChanged();
+        }
     }
 
-    public AlgorithmDataModel() : this(0, 0)
+    public static AlgorithmDataModel? AlgorithmDataModelInstance;
+
+    public AlgorithmDataModel()
     {
+        _accessesCount = 0;
+        _swapsCount = 0;
+        _setCount = 0;
+        _arrayLength = 1;
+        AlgorithmDataModelInstance ??= this;
     }
 }

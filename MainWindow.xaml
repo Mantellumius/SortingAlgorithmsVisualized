@@ -83,6 +83,11 @@
                 <TextBlock
                     Text="{Binding SwapsCount}"
                     Style="{StaticResource CounterTextBlockTheme}" />
+                <Label Content="Set: "
+                       Style="{StaticResource LabelTheme}" />
+                <TextBlock
+                    Text="{Binding SetCount}"
+                    Style="{StaticResource CounterTextBlockTheme}" />
             </StackPanel>
             <Border Grid.Column="1" Grid.Row="0" MouseDown="DragWithHeader"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

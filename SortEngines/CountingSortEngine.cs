@@ -23,7 +23,7 @@ public class CountingSortEngine : ISortEngine<int>
             {
                 if (token.IsCancellationRequested)
                     return;
-                await UtilityFunctions.StraightChange(values, j++, i);
+                await UtilityFunctions.Set(values, j++, i);
             }
     }
 }

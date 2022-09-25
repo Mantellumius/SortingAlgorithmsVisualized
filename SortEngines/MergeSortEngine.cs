@@ -36,21 +36,21 @@ public class MergeSortEngine : ISortEngine<int>
             if (token.IsCancellationRequested)
                 return;
             var newValue = leftTempArray[i] <= rightTempArray[j] ? leftTempArray[i++] : rightTempArray[j++];
-            await UtilityFunctions.StraightChange(values, ++k - 1, newValue);
+            await UtilityFunctions.Set(values, ++k - 1, newValue);
         }
 
         while (i < leftTempArray.Length)
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.StraightChange(values, ++k - 1, leftTempArray[i++]);
+            await UtilityFunctions.Set(values, ++k - 1, leftTempArray[i++]);
         }
 
         while (j < rightTempArray.Length)
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.StraightChange(values, ++k - 1, rightTempArray[j++]);
+            await UtilityFunctions.Set(values, ++k - 1, rightTempArray[j++]);
         }
     }
 }

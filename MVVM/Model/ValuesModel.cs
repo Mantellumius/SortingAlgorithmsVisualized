@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sorting_visualizer.Updaters;
 
 namespace Sorting_visualizer.MVVM.Model;
 
@@ -21,7 +22,7 @@ public class ValuesModel<T> : IEnumerable<T>
         set
         {
             if (IsCountingEnabled)
-                ActionsPerformedUpdater.Inspect(index);
+                ActionsPerformedUpdater.Set(index,0);
             _values[index] = value;
         }
     }
