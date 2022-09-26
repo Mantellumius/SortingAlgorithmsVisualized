@@ -13,9 +13,10 @@ public class HeapSortEngine : ISortEngine<int>
         {
             await Heapify(values, values.Length, i, token);
         }
+
         for (var i = values.Length - 1; i > 0; i--)
         {
-            await UtilityFunctions.Swap(values, 0, i);
+            await values.Swap(0, i);
             await Heapify(values, i, 0, token);
         }
     }
@@ -33,7 +34,7 @@ public class HeapSortEngine : ISortEngine<int>
             {
                 if (token.IsCancellationRequested)
                     return;
-                await UtilityFunctions.Inspect(left, largest);
+                await values.Inspect(left, largest);
                 if (values[left] > values[largest])
                     largest = left;
             }
@@ -42,13 +43,13 @@ public class HeapSortEngine : ISortEngine<int>
             {
                 if (token.IsCancellationRequested)
                     return;
-                await UtilityFunctions.Inspect(right, largest);
+                await values.Inspect(right, largest);
                 if (values[right] > values[largest])
                     largest = right;
             }
 
             if (largest == i) return;
-            await UtilityFunctions.Swap(values, i, largest);
+            await values.Swap(i, largest);
             i = largest;
         }
     }

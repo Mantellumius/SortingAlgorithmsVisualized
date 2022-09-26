@@ -23,7 +23,7 @@ public class RadixSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             occurrences[values[i] / exponent % 10]++;
         }
 
@@ -36,7 +36,7 @@ public class RadixSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             outputArr[occurrences[(values[i] / exponent) % 10] - 1] = values[i];
             occurrences[values[i] / exponent % 10]--;
         }
@@ -45,7 +45,7 @@ public class RadixSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Set(values, i, outputArr[i]);
+            await values.Set( i, outputArr[i]);
         }
     }
 }

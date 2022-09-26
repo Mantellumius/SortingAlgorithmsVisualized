@@ -69,22 +69,22 @@
                         Width="150"
                         ValueChanged="Slider_ValueChanged" />
                 <Label Content="Length: "
-                       Style="{StaticResource LabelTheme}" />
+                       Style="{StaticResource CounterLabelTheme}" />
                 <TextBlock
                     Text="{Binding ArrayLength}"
                     Style="{StaticResource CounterTextBlockTheme}" />
                 <Label Content="Accesses: "
-                       Style="{StaticResource LabelTheme}" />
+                       Style="{StaticResource CounterLabelTheme}" />
                 <TextBlock
                     Text="{Binding AccessesCount}"
                     Style="{StaticResource CounterTextBlockTheme}" />
                 <Label Content="Swaps: "
-                       Style="{StaticResource LabelTheme}" />
+                       Style="{StaticResource CounterLabelTheme}" />
                 <TextBlock
                     Text="{Binding SwapsCount}"
                     Style="{StaticResource CounterTextBlockTheme}" />
                 <Label Content="Set: "
-                       Style="{StaticResource LabelTheme}" />
+                       Style="{StaticResource CounterLabelTheme}" />
                 <TextBlock
                     Text="{Binding SetCount}"
                     Style="{StaticResource CounterTextBlockTheme}" />
@@ -136,31 +136,25 @@
                     <updown:NumericUpDown
                         Value="{Binding InspectDelay}"
                         ValueChanged="InspectUpDown_OnValueChanged"
-                        Style="{StaticResource DelayUpDown}"/>
+                        Style="{StaticResource DelayUpDown}" />
                     <Label Content="Inspect delay"
-                           Foreground="White"
-                           FontSize="14"
-                           FontWeight="Medium"/>
+                           Style="{StaticResource DelayLabelTheme}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <updown:NumericUpDown
                         Value="{Binding SwapDelay}"
                         ValueChanged="SwapUpDown_OnValueChanged"
-                        Style="{StaticResource DelayUpDown}"/>
+                        Style="{StaticResource DelayUpDown}" />
                     <Label Content="Swap delay "
-                           Foreground="White"
-                           FontSize="14"
-                           FontWeight="Medium"/>
+                           Style="{StaticResource DelayLabelTheme}" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <updown:NumericUpDown
-                        Value="{Binding StraightChange}"
+                        Value="{Binding SetDelay}"
                         ValueChanged="StraightChangeUpDown_OnValueChanged"
-                        Style="{StaticResource DelayUpDown}"/>
-                    <Label Content="Straight change delay"
-                           Foreground="White"
-                           FontSize="14"
-                           FontWeight="Medium"/>
+                        Style="{StaticResource DelayUpDown}" />
+                    <Label Content="Set delay"
+                           Style="{StaticResource DelayLabelTheme}" />
                 </StackPanel>
             </StackPanel>
             <Canvas Grid.Column="1"

@@ -21,10 +21,10 @@ public class BucketSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             if (values[i] > maxValue)
                 maxValue = values[i];
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             if (values[i] < minValue)
                 minValue = values[i];
         }
@@ -36,9 +36,9 @@ public class BucketSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             var selectedBucket = values[i] / numberOfBuckets;
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             bucket[selectedBucket].Add(values[i]);
         }
 
@@ -54,7 +54,7 @@ public class BucketSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Set(values, i, sortedList[i]);
+            await values.Set( i, sortedList[i]);
         }
     }
 

@@ -16,9 +16,9 @@ public class BubbleSortEngine : ISortEngine<int>
                     return;
                 var nextIndex = i + 1;
                 if (values[i] > values[nextIndex])
-                    await UtilityFunctions.Swap(values, i, nextIndex);
+                    await values.Swap(i, nextIndex);
                 else
-                    await UtilityFunctions.Inspect(i, nextIndex);
+                    await values.Inspect(i, nextIndex);
             }
         }
     }

@@ -27,8 +27,8 @@ public static class ArrayViewUpdater
     public static async Task Set(int i, int height)
     {
         ChangeBarColor(ChangePerformedColor, i);
-        if (DelaysModel.DelaysModelInstance!.StraightChange > 0)
-            await Task.Delay(DelaysModel.DelaysModelInstance.StraightChange);
+        if (DelaysModel.DelaysModelInstance!.SetDelay > 0)
+            await Task.Delay(DelaysModel.DelaysModelInstance.SetDelay);
         var bar1 = (Rectangle)MainWindow.MainWindowInstance.ArrayCanvas?.Children[i]!;
         bar1.Height = height;
         ChangeBarColor(BaseColor, i);

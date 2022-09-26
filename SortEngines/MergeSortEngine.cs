@@ -25,9 +25,9 @@ public class MergeSortEngine : ISortEngine<int>
         CancellationToken token)
     {
         var leftTempArray = values.Skip<int>(left).Take(middle - left + 1).ToArray();
-        await UtilityFunctions.Inspect(Enumerable.Range(left, middle - left + 1).ToArray());
+        await values.Inspect(Enumerable.Range(left, middle - left + 1).ToArray());
         var rightTempArray = values.Skip(middle + 1).Take(right - middle).ToArray();
-        await UtilityFunctions.Inspect(Enumerable.Range(middle + 1, right - middle).ToArray());
+        await values.Inspect(Enumerable.Range(middle + 1, right - middle).ToArray());
         var i = 0;
         var j = 0;
         var k = left;
@@ -36,21 +36,21 @@ public class MergeSortEngine : ISortEngine<int>
             if (token.IsCancellationRequested)
                 return;
             var newValue = leftTempArray[i] <= rightTempArray[j] ? leftTempArray[i++] : rightTempArray[j++];
-            await UtilityFunctions.Set(values, ++k - 1, newValue);
+            await values.Set(++k - 1, newValue);
         }
 
         while (i < leftTempArray.Length)
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Set(values, ++k - 1, leftTempArray[i++]);
+            await values.Set(++k - 1, leftTempArray[i++]);
         }
 
         while (j < rightTempArray.Length)
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Set(values, ++k - 1, rightTempArray[j++]);
+            await values.Set(++k - 1, rightTempArray[j++]);
         }
     }
 }

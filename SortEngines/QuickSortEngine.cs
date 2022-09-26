@@ -16,19 +16,19 @@ public class QuickSortEngine : ISortEngine<int>
         var i = leftIndex;
         var j = rightIndex;
         var pivot = values[leftIndex];
-        await UtilityFunctions.Inspect(leftIndex);
+        await values.Inspect(leftIndex);
         while (i <= j)
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Inspect(i, leftIndex);
+            await values.Inspect(i, leftIndex);
             while (values[i] < pivot)
                 i++;
-            await UtilityFunctions.Inspect(j, leftIndex);
+            await values.Inspect(j, leftIndex);
             while (values[j] > pivot)
                 j--;
             if (i > j) continue;
-            await UtilityFunctions.Swap(values, i, j);
+            await values.Swap(i, j);
             i++;
             j--;
         }

@@ -1,17 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Sorting_visualizer.Updaters;
 
 namespace Sorting_visualizer.MVVM.Model;
 
-public class ValuesModel<T> : IEnumerable<T>
+public class ValuesModel<T> : IEnumerable<int>
 {
     public int Length => _values.Length;
     public bool IsCountingEnabled;
-    private readonly T[] _values;
+    public static event Func<int, int, Task>? OnSwap;
+    public static event Func<int[], Task>? OnInspect;
+    public static event Func<int, int, Task>? OnSet;
+    private readonly int[] _values;
 
-    public T this[int index]
+    public int this[int index]
     {
         get
         {
@@ -22,24 +27,49 @@ public class ValuesModel<T> : IEnumerable<T>
         set
         {
             if (IsCountingEnabled)
-                ActionsPerformedUpdater.Set(index,0);
+                ActionsPerformedUpdater.Set(index, 0);
             _values[index] = value;
         }
     }
 
     public ValuesModel(int size)
     {
-        _values = new T[size];
+        _values = new int[size];
     }
 
 
-    public IEnumerator<T> GetEnumerator()
+    public IEnumerator<int> GetEnumerator()
     {
-        return _values.Cast<T>().GetEnumerator();
+        return _values.Cast<int>().GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+
+    public async Task Swap(int i1, int i2)
+    {
+        (_values[i1], _values[i2]) = (_values[i2], _values[i1]);
+        await OnSwap?.Invoke(i1, i2)!;
+    }
+
+    public async Task Set(int i, int value)
+    {
+        _values[i] = value;
+        await OnSet?.Invoke(i, value)!;
+    }
+
+    public async Task Inspect(params int[] indexes)
+    {
+        await OnInspect?.Invoke(indexes)!;
+    }
+    
+    public bool IsSorted()
+    {
+        for (var i = 0; i < _values.Length - 1; i++)
+            if (_values[i] > _values[i + 1])
+                return false;
+        return true;
     }
 }

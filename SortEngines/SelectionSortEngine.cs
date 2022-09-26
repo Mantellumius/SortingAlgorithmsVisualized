@@ -1,8 +1,6 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Sorting_visualizer.MVVM.Model;
-
 namespace Sorting_visualizer.SortEngines;
 
 public class SelectionSortEngine : ISortEngine<int>
@@ -18,10 +16,10 @@ public class SelectionSortEngine : ISortEngine<int>
                 if (token.IsCancellationRequested)
                     return;
                 minValueIndex = values[j] < values[minValueIndex] ? j : minValueIndex;
-                await UtilityFunctions.Inspect(j, minValueIndex);
+                await values.Inspect(j, minValueIndex);
             }
 
-            await UtilityFunctions.Swap(values, minValueIndex, i);
+            await values.Swap(minValueIndex, i);
         }
     }
 }

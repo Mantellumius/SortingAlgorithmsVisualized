@@ -14,7 +14,7 @@ public class CountingSortEngine : ISortEngine<int>
         {
             if (token.IsCancellationRequested)
                 return;
-            await UtilityFunctions.Inspect(i);
+            await values.Inspect(i);
             occurrences[values[i]]++;
         }
 
@@ -23,7 +23,7 @@ public class CountingSortEngine : ISortEngine<int>
             {
                 if (token.IsCancellationRequested)
                     return;
-                await UtilityFunctions.Set(values, j++, i);
+                await values.Set(j++, i);
             }
     }
 }

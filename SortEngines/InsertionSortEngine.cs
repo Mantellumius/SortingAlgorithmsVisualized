@@ -8,21 +8,23 @@ public class InsertionSortEngine : ISortEngine<int>
 {
     public async Task Sort(ValuesModel<int> values, CancellationToken token)
     {
-        for (var i = 1; i < values.Length; i++) {
+        for (var i = 1; i < values.Length; i++)
+        {
             var value = values[i];
-            for (var j = i - 1; j >= 0; ){
+            for (var j = i - 1; j >= 0;)
+            {
                 if (token.IsCancellationRequested)
                     return;
                 if (value < values[j])
                 {
-                    await UtilityFunctions.Swap(values, j, j + 1);
+                    await values.Swap(j, j + 1);
                     j--;
                 }
                 else
                 {
-                    await UtilityFunctions.Inspect(i, j);
+                    await values.Inspect(i, j);
                     break;
-                };
+                }
             }
         }
     }

@@ -58,26 +58,26 @@ namespace Sorting_visualizer
 
         private void SubscribeActionsPerformedUpdater()
         {
-            UtilityFunctions.OnSwap += ActionsPerformedUpdater.Swap;
+            ValuesModel<int>.OnSwap += ActionsPerformedUpdater.Swap;
         }
 
         private void UnsubscribeActionsPerformedUpdater()
         {
-            UtilityFunctions.OnSwap -= ActionsPerformedUpdater.Swap;
+            ValuesModel<int>.OnSwap -= ActionsPerformedUpdater.Swap;
         }
 
         private void SubscribeArrayView()
         {
-            UtilityFunctions.OnSwap += ArrayViewUpdater.Swap;
-            UtilityFunctions.OnInspect += ArrayViewUpdater.Inspect;
-            UtilityFunctions.OnSet += ArrayViewUpdater.Set;
+            ValuesModel<int>.OnSwap += ArrayViewUpdater.Swap;
+            ValuesModel<int>.OnInspect += ArrayViewUpdater.Inspect;
+            ValuesModel<int>.OnSet += ArrayViewUpdater.Set;
         }
 
         private void UnsubscribeArrayView()
         {
-            UtilityFunctions.OnSwap -= ArrayViewUpdater.Swap;
-            UtilityFunctions.OnInspect -= ArrayViewUpdater.Inspect;
-            UtilityFunctions.OnSet -= ArrayViewUpdater.Set;
+            ValuesModel<int>.OnSwap -= ArrayViewUpdater.Swap;
+            ValuesModel<int>.OnInspect -= ArrayViewUpdater.Inspect;
+            ValuesModel<int>.OnSet -= ArrayViewUpdater.Set;
         }
 
         #endregion
@@ -193,7 +193,7 @@ namespace Sorting_visualizer
 
         private void StraightChangeUpDown_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
-            DelaysModel.DelaysModelInstance!.StraightChange = e.NewValue;
+            DelaysModel.DelaysModelInstance!.SetDelay = e.NewValue;
         }
 
         #endregion

@@ -28,14 +28,14 @@ public class DelaysModel : ObservableObject
         }
     }
 
-    private int _straightChange;
+    private int _setDelay;
 
-    public int StraightChange
+    public int SetDelay
     {
-        get => _straightChange;
+        get => _setDelay;
         set
         {
-            _straightChange = value;
+            _setDelay = value;
             OnPropertyChanged();
         }
     }
@@ -46,7 +46,7 @@ public class DelaysModel : ObservableObject
     {
         _inspectDelay = 1;
         _swapDelay = 1;
-        _straightChange = 1;
+        _setDelay = 1;
         DelaysModelInstance ??= this;
     }
 }
